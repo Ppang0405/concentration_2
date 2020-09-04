@@ -10,13 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var flipCountLabel: UILabel!
+
     // all instance properties of class have to init
-    var flipCount: Int = 0
+    var flipCount = 0 { // a property observer ------------------------------- 😦
+        didSet {
+            flipCountLabel.text = "Flips: \(flipCount)" // every time flipCount change -> should change flipCountLabel
+        }
+    }
 
     @IBAction func touchCard(_ sender: UIButton) {
+        flipCount += 1
         flipCard(withEmoji: "🤢", on: sender)
     }
     @IBAction func touchSecondCard(_ sender: UIButton) {
+        flipCount += 1
         flipCard(withEmoji: "🎃", on: sender)
     }
     

@@ -12,6 +12,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var flipCountLabel: UILabel!
 
+    // if rename something connect with sb, have to cammand click and select rename
+    
+    @IBOutlet var cardButtons: [UIButton]!
+    
+    // emothing index have to put exactly index emoji in UI
+    var emojiChoices = ["🎃", "🤢", "🎃", "🤢"]
+    
     // all instance properties of class have to init
     var flipCount = 0 { // a property observer ------------------------------- 😦
         didSet {
@@ -21,11 +28,13 @@ class ViewController: UIViewController {
 
     @IBAction func touchCard(_ sender: UIButton) {
         flipCount += 1
-        flipCard(withEmoji: "🤢", on: sender)
-    }
-    @IBAction func touchSecondCard(_ sender: UIButton) {
-        flipCount += 1
-        flipCard(withEmoji: "🎃", on: sender)
+        
+        guard let cardNumber = cardButtons.firstIndex(of: sender) else {
+            print("cardNumber = ??, NOT SET")
+            return
+        }
+        flipCard(withEmoji: emojiChoices[cardNumber], on: sender)
+        print("cardNumber = \(cardNumber)")
     }
     
     func flipCard(withEmoji emoji: String, on button: UIButton) {
